@@ -10,8 +10,6 @@ image.get("/", imageProcessing, (req: Request, res: Response): void => {
     const outputDir: string = `${nameFileValue}${widthValue}_${heightValue}.jpg`;
 
     res.sendFile(outputDir, { root: './images/imageOutput/' });
-    res.status(404).send('There Are A Problem in This Page');
-
 });
 
 export default image;

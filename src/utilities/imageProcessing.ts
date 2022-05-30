@@ -7,10 +7,11 @@ const imageProcessing = async(req: Request, res: Response, next: Function): Prom
     const heightValue = <string>req.query.height;
     const nameFileValue = <string>req.query.namefile;
 
-    const outputDir = `./images/imageOutput/${nameFileValue}${widthValue}_${heightValue}.jpg`;
+    const outputDir = `/images/imageOutput/${nameFileValue}${widthValue}_${heightValue}.jpg`;
+    const outputFolderDir = `/images/imageOutput`;
 
     const makeDir = async (): Promise<void> => {
-        await fsPromises.mkdir('./images/imageOutput');
+        await fsPromises.mkdir(outputFolderDir);
     };
 
     const imageProcessing = async (): Promise<void> => {
@@ -23,6 +24,8 @@ const imageProcessing = async(req: Request, res: Response, next: Function): Prom
 
     if (fs.existsSync(outputDir)) {
         return outputDir;
+    } else if (fs.existsSync(outputFolderDir)) {
+        await imageProcessing();
     } else {
         makeDir();
         await imageProcessing();
